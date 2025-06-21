@@ -39,13 +39,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/login/**",
+                        .requestMatchers("/auth/login/**",
                          "/register/**", "/api/budgets/**", 
                          "/api/categories/**", "/api/accounts/**",
                          "/api/transactions/**", "/api/expenses/**",
-                         "/api/accounts/user/{userId}/**", "/api/expenses/user/{userId}/**").permitAll()
+                         "/api/accounts/user/{userId}/**", "/api/expenses/user/{userId}/**", "/forgotPassword", "/resetPassword").permitAll()
                         .anyRequest().authenticated())
                 .userDetailsService(userDetailsServiceImp)
                 .sessionManagement(session -> session
@@ -68,9 +69,10 @@ public class SecurityConfig {
     @Bean 
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://likuta-trac-web-app-upt7.vercel.app"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "content-Type"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

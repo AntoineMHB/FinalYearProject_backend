@@ -17,7 +17,7 @@ import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.service.AccountService;
 import com.antoine.springJwt.service.UserService;
 
-@CrossOrigin(origins = "https://likuta-trac-web-app-upt7.vercel.app")
+@CrossOrigin(origins = "http://localhost:5173/")
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
