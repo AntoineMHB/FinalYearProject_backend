@@ -39,12 +39,12 @@ public class PasswordResetService {
         mailSender.send(message);
     }
 
-    public void resetPassword(String token, String newPassword) {
+    public void resetPassword(String token, String password) {
         String email = tokenStore.get(token);
         if (email == null) throw new RuntimeException("Invalid token");
 
         User user = userRepository.findByEmail(email).orElseThrow();
-        user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
         userRepository.save(user);
 
         tokenStore.remove(token);

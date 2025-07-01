@@ -34,9 +34,11 @@ public class AuthenticationController {
         return ResponseEntity.ok("Reset link sent");
     }
 
-    @PostMapping("/resetPassword")
+    @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
-        passwordResetService.resetPassword(request.getToken(), request.getNewPassword());
+        System.out.println("Token: " + request.getToken());
+                System.out.println("Password: " + request.getPassword());
+        passwordResetService.resetPassword(request.getToken(), request.getPassword());
         return ResponseEntity.ok("Password updated");
     }
 

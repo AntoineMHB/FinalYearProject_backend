@@ -2,7 +2,7 @@ package com.antoine.springJwt.DTO;
 
 public class ResetPasswordRequest {
     private String token;
-    private String newPassword;
+    private String password;
     
     public String getToken() {
         return token;
@@ -10,11 +10,11 @@ public class ResetPasswordRequest {
     public void setToken(String token) {
         this.token = token;
     }
-    public String getNewPassword() {
-        return newPassword;
+    public String getPassword() {
+        return password;
     }
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     
