@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.antoine.springJwt.DTO.ForgotPasswordRequest;
 import com.antoine.springJwt.DTO.ResetPasswordRequest;
@@ -13,6 +14,8 @@ import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.service.AuthenticationService;
 import com.antoine.springJwt.service.PasswordResetService;
 
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class AuthenticationController {
 

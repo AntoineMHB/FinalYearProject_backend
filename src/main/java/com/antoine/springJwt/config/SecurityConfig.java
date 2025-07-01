@@ -46,7 +46,7 @@ public class SecurityConfig {
                          "/register/**", "/api/budgets/**", 
                          "/api/categories/**", "/api/accounts/**",
                          "/api/transactions/**", "/api/expenses/**",
-                         "/api/accounts/user/{userId}/**", "/api/expenses/user/{userId}/**", "/forgotPassword", "/resetPassword").permitAll()
+                         "/api/accounts/user/{userId}/**", "/api/expenses/user/{userId}/**", "/forgotPassword/**", "/resetPassword").permitAll()
                         .anyRequest().authenticated())
                 .userDetailsService(userDetailsServiceImp)
                 .sessionManagement(session -> session
@@ -71,7 +71,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
