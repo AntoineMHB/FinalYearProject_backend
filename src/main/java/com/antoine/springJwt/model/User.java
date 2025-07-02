@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -46,30 +45,20 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JsonIgnore
-    @JsonManagedReference
-    private List<Account> accounts = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Department> departments = new ArrayList<>();
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Budget> budgets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Expense> expenses = new ArrayList<>();
+
 
 
     // constructors
 
-    public void addAccount(Account account) {
-        accounts.add(account);
-        account.setUser(this);
-    }
-
-    public void removeAccount(Account account) {
-        accounts.remove(account);
-        account.setUser(null);
-    }
 
     public void addBudget(Budget budget) {
         budgets.add(budget);
@@ -86,13 +75,6 @@ public class User implements UserDetails {
         return user_id;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
 
     public List<Budget> getBudgets() {
         return budgets;
@@ -186,12 +168,12 @@ public class User implements UserDetails {
         this.user_id = user_id;
     }
 
-    public List<Expense> getExpenses() {
-        return expenses;
+    public List<Department> getDepartments() {
+        return departments;
     }
 
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
     }
 
 }
