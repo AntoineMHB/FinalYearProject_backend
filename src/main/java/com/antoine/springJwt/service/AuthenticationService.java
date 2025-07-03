@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.antoine.springJwt.model.AuthenticationResponse;
+import com.antoine.springJwt.model.Role;
 import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.repository.UserRepository;
 
@@ -33,7 +34,12 @@ public class AuthenticationService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        user.setRole(request.getRole());
+        if (request.getEmail().endsWith("@admincomp.com")) {
+            user.setRole(Role.ADMIN);
+        } else {
+             user.setRole(Role.USER);
+        }
+        
 
         user = repository.save(user);
 
