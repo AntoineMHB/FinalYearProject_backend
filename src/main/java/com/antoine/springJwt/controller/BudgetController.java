@@ -27,10 +27,10 @@ public class BudgetController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Budget>> getBudgetsByUser(@PathVariable Integer userId) {
-        return ResponseEntity.ok(budgetService.getBudgetsByUser(userId));
-    }
+    // @GetMapping("/user/{userId}")
+    // public ResponseEntity<List<Budget>> getBudgetsByUser(@PathVariable Integer userId) {
+    //     return ResponseEntity.ok(budgetService.getBudgetsByUser(userId));
+    // }
 
     @PostMapping
     public ResponseEntity<Budget> createBudget(@RequestBody Budget budget) {
@@ -45,6 +45,11 @@ public class BudgetController {
         }
         budget.setUser(user);
         return ResponseEntity.ok(budgetService.creaBudget(budget));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Budget>> getBudgets() {
+        return ResponseEntity.ok(budgetService.getAllBudgets());
     }
 
     @DeleteMapping("/{budgetId}")

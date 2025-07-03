@@ -19,6 +19,11 @@ public class BudgetService {
         return budgetRepository.findByUserId(userId);
     }
 
+    public List<Budget> getAllBudgets () {
+        return budgetRepository.findAll();
+
+    }
+
     public Budget creaBudget(Budget budget) {
         // we ensure all mandatory fields area set
         if (budget.getAmount() == null || budget.getUser() == null) {
