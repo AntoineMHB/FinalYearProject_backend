@@ -27,8 +27,11 @@ public class Budget {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
+    
   
 
     public User getUser() {
@@ -73,11 +76,13 @@ public class Budget {
         this.budgetName = budgetName;
     }
 
-  
+    public Department getDepartment() {
+        return department;
+    }
 
-
-
-
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     
     
