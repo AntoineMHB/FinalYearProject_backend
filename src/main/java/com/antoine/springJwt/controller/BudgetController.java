@@ -60,10 +60,11 @@ public ResponseEntity<List<BudgetDto>> getBudgets() {
 
     return ResponseEntity.ok(dtos);
 }
-
-    // public ResponseEntity<List<Budget>> getBudgets() {
-    //     return ResponseEntity.ok(budgetService.getAllBudgets());
-    // }
+    @GetMapping("/count")
+    public ResponseEntity<Long> countBudgets() {
+        long count = budgetService.countBudgets();
+        return ResponseEntity.ok(count);
+    }
 
     @DeleteMapping("/{budgetId}")
     public ResponseEntity<Void> deleteBudget(@PathVariable Integer budgetId) {

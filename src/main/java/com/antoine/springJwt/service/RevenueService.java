@@ -35,6 +35,14 @@ public class RevenueService {
         return revenueRepository.save(revenue);
     }
 
+    // RevenueService.java
+    public Double getTotalRevenueAmount() {
+       Double total = revenueRepository.getTotalRevenueAmount();
+       System.out.println("DEBUG TOTAL REVENUE AMOUNT: " + total);
+       return total != null ? total : 0.0;
+    }
+
+
     public void deleteRevenue(Integer revenueId) {
         revenueRepository.deleteById(revenueId);
     }

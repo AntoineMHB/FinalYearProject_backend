@@ -24,6 +24,10 @@ public class BudgetService {
 
     }
 
+    public long countBudgets() {
+        return budgetRepository.count();
+    }
+
     public Budget creaBudget(Budget budget) {
         // we ensure all mandatory fields area set
         if (budget.getAmount() == null || budget.getUser() == null) {

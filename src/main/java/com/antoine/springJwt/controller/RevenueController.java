@@ -36,6 +36,13 @@ public class RevenueController {
         return ResponseEntity.ok(revenueService.getAllRevenues());
     }
 
+    @GetMapping("/total-amount")
+    public ResponseEntity<Double> getTotalRevenueAmount() {
+       Double total = revenueService.getTotalRevenueAmount();
+       return ResponseEntity.ok(total);
+    }
+
+
     @PostMapping
     public ResponseEntity<Revenue> createRevenue(@RequestBody Revenue revenue) {
 
