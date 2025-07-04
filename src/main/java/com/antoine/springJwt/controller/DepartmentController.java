@@ -1,5 +1,6 @@
 package com.antoine.springJwt.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.antoine.springJwt.dto.DepartmentDto;
+import com.antoine.springJwt.mapper.DepartmentMapper;
 import com.antoine.springJwt.model.Department;
 import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.service.DepartmentService;
@@ -31,10 +34,16 @@ public class DepartmentController {
 
   
     
-    @GetMapping
-    public ResponseEntity<List<Department>> getDepartments() {
-        return ResponseEntity.ok(departmentService.getAllDepartments());
-    }
+@GetMapping
+public ResponseEntity<List<DepartmentDto>> getDepartments() {
+    List<Department> departments = departmentService.getAllDepartments();
+    List<DepartmentDto> dtos = new ArrayList<>();
+    for (Department department : departments) {
+        dtos.add(DepartmentMapper.toDto(department));
+}
+
+    return ResponseEntity.ok(dtos);
+}
 
     @PostMapping
     public ResponseEntity<Department> createDepartment(@RequestBody Department department) {

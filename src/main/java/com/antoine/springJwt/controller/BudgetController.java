@@ -1,5 +1,6 @@
 package com.antoine.springJwt.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.antoine.springJwt.dto.BudgetDto;
+import com.antoine.springJwt.mapper.BudgetMapper;
 import com.antoine.springJwt.model.Budget;
 import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.service.BudgetService;
@@ -47,10 +50,20 @@ public class BudgetController {
         return ResponseEntity.ok(budgetService.creaBudget(budget));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Budget>> getBudgets() {
-        return ResponseEntity.ok(budgetService.getAllBudgets());
-    }
+@GetMapping
+public ResponseEntity<List<BudgetDto>> getBudgets() {
+    List<Budget> budgets = budgetService.getAllBudgets();
+    List<BudgetDto> dtos = new ArrayList<>();
+    for (Budget budget : budgets) {
+        dtos.add(BudgetMapper.toDto(budget));
+}
+
+    return ResponseEntity.ok(dtos);
+}
+
+    // public ResponseEntity<List<Budget>> getBudgets() {
+    //     return ResponseEntity.ok(budgetService.getAllBudgets());
+    // }
 
     @DeleteMapping("/{budgetId}")
     public ResponseEntity<Void> deleteBudget(@PathVariable Integer budgetId) {
