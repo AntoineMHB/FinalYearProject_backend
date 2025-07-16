@@ -12,6 +12,8 @@ public class BudgetMapper {
         dto.setDescription(budget.getDescription());
         dto.setUserId(budget.getUser().getId());
         dto.setDepartmentId(budget.getDepartment().getId());
+        dto.setCreatedAt(budget.getCreatedAt());
+        dto.setUpdatedAt(budget.getUpdatedAt());
         return dto;
     }
 }

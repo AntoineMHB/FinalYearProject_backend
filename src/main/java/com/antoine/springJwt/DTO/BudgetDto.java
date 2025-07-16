@@ -1,5 +1,7 @@
 package com.antoine.springJwt.dto;
 
+import java.time.LocalDateTime;
+
 public class BudgetDto {
     private Integer id;
     private String budgetName;
@@ -7,6 +9,9 @@ public class BudgetDto {
     private String description;
     private Integer userId;
     private Integer departmentId;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     // Getters and Setters
     public Integer getId() { return id; }
@@ -26,4 +31,10 @@ public class BudgetDto {
 
     public Integer getDepartmentId() { return departmentId; }
     public void setDepartmentId(Integer departmentId) { this.departmentId = departmentId; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

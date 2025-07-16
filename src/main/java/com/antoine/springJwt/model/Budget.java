@@ -1,7 +1,11 @@
 package com.antoine.springJwt.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -42,6 +46,12 @@ public class Budget {
     @OneToMany(mappedBy = "budget", cascade = CascadeType.PERSIST)
     private List<Revenue> revenues = new ArrayList<>();
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
     
   
 
@@ -103,8 +113,20 @@ public class Budget {
         this.revenues = revenues;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
     
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 
-    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
     
 }
