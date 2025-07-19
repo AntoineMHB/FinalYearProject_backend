@@ -24,6 +24,12 @@ public class BudgetService {
 
     }
 
+    public Double getTotalBudgetAmount() {
+       Double total = budgetRepository.getTotalBudgetAmount();
+       System.out.println("DEBUG TOTAL BUDGET AMOUNT: " + total);
+       return total != null ? total : 0.0;
+    }
+
     public long countBudgets() {
         return budgetRepository.count();
     }

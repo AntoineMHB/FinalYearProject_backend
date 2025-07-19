@@ -66,6 +66,12 @@ public ResponseEntity<List<BudgetDto>> getBudgets() {
         return ResponseEntity.ok(count);
     }
 
+    @GetMapping("/total-budget")
+    public ResponseEntity<Double> getTotalBudgetAmount() {
+       Double total = budgetService.getTotalBudgetAmount();
+       return ResponseEntity.ok(total);
+    }
+
     @DeleteMapping("/{budgetId}")
     public ResponseEntity<Void> deleteBudget(@PathVariable Integer budgetId) {
         budgetService.deleteBudget(budgetId);
