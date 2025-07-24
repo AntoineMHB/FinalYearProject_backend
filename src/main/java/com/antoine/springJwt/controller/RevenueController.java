@@ -1,5 +1,6 @@
 package com.antoine.springJwt.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.antoine.springJwt.dto.RevenueDto;
+import com.antoine.springJwt.mapper.RevenueMapper;
 import com.antoine.springJwt.model.Revenue;
 import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.service.RevenueService;
@@ -31,10 +34,16 @@ public class RevenueController {
 
   
     
-    @GetMapping
-    public ResponseEntity<List<Revenue>> getRevenues() {
-        return ResponseEntity.ok(revenueService.getAllRevenues());
-    }
+   @GetMapping
+    public ResponseEntity<List<RevenueDto>> getRevenues() {
+      List<Revenue> revenues = revenueService.getAllRevenues();
+      List<RevenueDto> dtos = new ArrayList<>();
+      for (Revenue revenue : revenues) {
+        dtos.add(RevenueMapper.toDto(revenue));
+}
+
+    return ResponseEntity.ok(dtos);
+}
 
     @GetMapping("/total-amount")
     public ResponseEntity<Double> getTotalRevenueAmount() {

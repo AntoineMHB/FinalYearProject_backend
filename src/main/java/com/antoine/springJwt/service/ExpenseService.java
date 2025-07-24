@@ -25,6 +25,12 @@ public class ExpenseService {
 
     }
 
+    public Double getTotalExpenseAmount() {
+       Double total = expenseRepository.getTotalExpenseAmount();
+       System.out.println("DEBUG TOTAL EXPENSE AMOUNT: " + total);
+       return total != null ? total : 0.0;
+    }
+
 
      public Expense getExpenseById(Integer expenseId) {
         return expenseRepository.findById(expenseId)
