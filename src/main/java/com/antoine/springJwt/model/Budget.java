@@ -46,6 +46,9 @@ public class Budget {
     @OneToMany(mappedBy = "budget", cascade = CascadeType.PERSIST)
     private List<Revenue> revenues = new ArrayList<>();
 
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.PERSIST)
+    private List<Expense> expenses = new ArrayList<>();
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -128,5 +131,14 @@ public class Budget {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
+    }
+    
     
 }

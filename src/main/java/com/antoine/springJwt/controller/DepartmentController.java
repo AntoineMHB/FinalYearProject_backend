@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.antoine.springJwt.dto.DepartmentBudgetDto;
 import com.antoine.springJwt.dto.DepartmentDto;
 import com.antoine.springJwt.mapper.DepartmentMapper;
 import com.antoine.springJwt.model.Department;
@@ -44,6 +45,11 @@ public ResponseEntity<List<DepartmentDto>> getDepartments() {
 
     return ResponseEntity.ok(dtos);
 }
+    @GetMapping("/budget-summary")
+    public ResponseEntity<List<DepartmentBudgetDto>> getDepartmentBudgetsSummary() {
+        List<DepartmentBudgetDto> summaries = departmentService.getDepartmentBudgets();
+        return ResponseEntity.ok(summaries);
+    }
 
     @PostMapping
     public ResponseEntity<Department> createDepartment(@RequestBody Department department) {
