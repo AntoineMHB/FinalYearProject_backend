@@ -1,5 +1,6 @@
 package com.antoine.springJwt.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,8 @@ public interface ExpenseRepository extends JpaRepository<Expense, Integer>{
 
     @Query(value = "SELECT SUM(max_amount) FROM expense", nativeQuery = true)
     Double getTotalExpenseAmount();
+
+    List<Expense> findByUserIdAndCreatedAtBetween(Integer userId, LocalDate start, LocalDate end);
+
     
 }

@@ -1,48 +1,17 @@
 package com.antoine.springJwt.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
+import com.antoine.springJwt.dto.ExpenseReportDto;
 import com.antoine.springJwt.model.Expense;
-import com.antoine.springJwt.repository.ExpenseRepository;
 
-@Service
-public class ExpenseService {
-    private final ExpenseRepository expenseRepository;
+public interface ExpenseService {
+    ExpenseReportDto generateReport(LocalDate start, LocalDate end, Integer userId);
+        Double getTotalExpenseAmount();
+            Expense createExpense(Expense expense);
+                void deleteExpense(Integer expenseId);
+                    List<Expense> getAllExpenses();
+                    public Double calculateTotalExpense(LocalDate start, LocalDate end, Integer userId);
 
-    public ExpenseService(ExpenseRepository expenseRepository) {
-        this.expenseRepository = expenseRepository;
-    }
-
-    public List<Expense> getAllExpensesByUser(Integer userId) {
-        return expenseRepository.findByUserId(userId);
-
-    }
-
-    public List<Expense> getAllExpenses () {
-        return expenseRepository.findAll();
-
-    }
-
-    public Double getTotalExpenseAmount() {
-       Double total = expenseRepository.getTotalExpenseAmount();
-       System.out.println("DEBUG TOTAL EXPENSE AMOUNT: " + total);
-       return total != null ? total : 0.0;
-    }
-
-
-     public Expense getExpenseById(Integer expenseId) {
-        return expenseRepository.findById(expenseId)
-                .orElseThrow(() -> new IllegalArgumentException("Account not found with ID: " + expenseId));
-    }
-
-    public Expense createExpense(Expense expense) {
-        return expenseRepository.save(expense);
-    }
-
-    public void deleteExpense(Integer expenseId) {
-        expenseRepository.deleteById(expenseId);
-    }
-    
 }

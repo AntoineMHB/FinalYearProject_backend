@@ -1,5 +1,6 @@
 package com.antoine.springJwt.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.antoine.springJwt.dto.RevenueDto;
@@ -50,6 +52,15 @@ public class RevenueController {
        Double total = revenueService.getTotalRevenueAmount();
        return ResponseEntity.ok(total);
     }
+
+    @GetMapping("/total-byPeriod")
+    public Double getTotalRevenueForPeriod(
+        @RequestParam("start") LocalDate start,
+        @RequestParam("end") LocalDate end,
+        @RequestParam("userId") Integer userId) {
+            return revenueService.calculateTotalRevenue(start, end, userId);
+        }
+    
 
 
     @PostMapping

@@ -1,5 +1,6 @@
 package com.antoine.springJwt.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,8 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer>{
 
     @Query(value = "SELECT SUM(max_amount) FROM revenue", nativeQuery = true)
     Double getTotalRevenueAmount();
+
+    List<Revenue> findByUserIdAndCreatedAtBetween(Integer userId, LocalDate start, LocalDate end);
+
     
 }
