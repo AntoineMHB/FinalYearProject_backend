@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.antoine.springJwt.dto.ExpenseReportDto;
 import com.antoine.springJwt.model.Expense;
+import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.repository.ExpenseRepository;
 
 @Service
@@ -20,6 +21,12 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Autowired
     private final ExpenseRepository expenseRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private AuditLogService auditLogService;
 
     public ExpenseServiceImpl(ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
@@ -86,7 +93,9 @@ public ExpenseReportDto generateReport(LocalDate start, LocalDate end, Integer u
                 .orElseThrow(() -> new IllegalArgumentException("Account not found with ID: " + expenseId));
     }
 
-    public Expense createExpense(Expense expense) {
+    public Expense createExpense(Expense expense, Integer userId) {
+        User user = userService.getUserById(userId);
+        auditLogService.log("CREATE", "EXPENSE", "Created expense of " + expense.getAmount(), user);
         return expenseRepository.save(expense);
     }
 
