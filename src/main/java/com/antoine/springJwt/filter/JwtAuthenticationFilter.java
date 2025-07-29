@@ -29,12 +29,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
+    public boolean isPublicEndpoint(HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        return path.startsWith("/auth/login")
+                || path.startsWith("/register")
+                || path.startsWith("/forgotPassword")
+                || path.startsWith("/reset-password")
+                || path.startsWith("/api/audit-logs");
+    }
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+
+            if (isPublicEndpoint(request)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
 
         String authHeader = request.getHeader("Authorization");
 

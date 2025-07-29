@@ -54,6 +54,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Budget> budgets = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AuditLog> auditLogs = new ArrayList<>();
+
 
 
 
@@ -175,5 +179,15 @@ public class User implements UserDetails {
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
     }
+
+    public List<AuditLog> getAuditLogs() {
+        return auditLogs;
+    }
+
+    public void setAuditLogs(List<AuditLog> auditLogs) {
+        this.auditLogs = auditLogs;
+    }
+
+
 
 }

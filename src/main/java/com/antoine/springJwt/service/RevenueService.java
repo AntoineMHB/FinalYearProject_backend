@@ -9,7 +9,7 @@ public interface RevenueService {
     List<Revenue> getAllRevenuesByUser(Integer userId);
     List<Revenue> getAllRevenues();
     Revenue getRevenueById(Integer revenueId);
-    Revenue createRevenue(Revenue revenue);
+    Revenue createRevenue(Revenue revenue, Integer userId);
     Double getTotalRevenueAmount();
     void deleteRevenue(Integer revenueId);
     Double calculateTotalRevenue(LocalDate start, LocalDate end, Integer userId);

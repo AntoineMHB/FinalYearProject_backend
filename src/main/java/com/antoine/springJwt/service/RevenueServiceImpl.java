@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.antoine.springJwt.model.Revenue;
+import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.repository.RevenueRepository;
 
 @Service
@@ -16,9 +17,18 @@ public class RevenueServiceImpl implements RevenueService {
     @Autowired
     private final RevenueRepository revenueRepository;
 
+    @Autowired
+    private AuditLogService auditLogService;
+
+    @Autowired
+    private UserService userService;
+
+
     public RevenueServiceImpl(RevenueRepository revenueRepository) {
         this.revenueRepository = revenueRepository;
     }
+
+
 
     @Override
     public Double calculateTotalRevenue(LocalDate start, LocalDate end, Integer userId) {
@@ -46,7 +56,9 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     @Override
-    public Revenue createRevenue(Revenue revenue) {
+    public Revenue createRevenue(Revenue revenue, Integer userId) {
+        User user = userService.getUserById(userId);
+        auditLogService.log("CREATE", "REVENUE", "Created revenue of " + revenue.getAmount(), user);
         return revenueRepository.save(revenue);
     }
 
