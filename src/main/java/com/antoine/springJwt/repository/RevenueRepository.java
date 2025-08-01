@@ -18,5 +18,10 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer>{
 
     List<Revenue> findByUserIdAndCreatedAtBetween(Integer userId, LocalDate start, LocalDate end);
 
+    // Total revenue for a specific department via budget
+    @Query("SELECT SUM(r.amount) FROM Revenue r WHERE r.budget.department.id = :departmentId")
+    Double getTotalRevenueByDepartmentId(Integer departmentId);
+
+
     
 }

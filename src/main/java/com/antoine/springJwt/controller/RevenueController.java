@@ -21,6 +21,7 @@ import com.antoine.springJwt.dto.RevenueDto;
 import com.antoine.springJwt.mapper.RevenueMapper;
 import com.antoine.springJwt.model.Revenue;
 import com.antoine.springJwt.model.User;
+import com.antoine.springJwt.repository.RevenueRepository;
 import com.antoine.springJwt.service.JwtService;
 import com.antoine.springJwt.service.RevenueService;
 import com.antoine.springJwt.service.UserService;
@@ -34,11 +35,13 @@ public class RevenueController {
     private final RevenueService revenueService;
     private final UserService userService;
     private final JwtService jwtService;
+    private final RevenueRepository revenueRepository;
 
-    public RevenueController(RevenueService revenueService, UserService userService, JwtService jwtService) {
+    public RevenueController(RevenueService revenueService, UserService userService, JwtService jwtService, RevenueRepository revenueRepository) {
         this.revenueService = revenueService;
         this.userService = userService;
         this.jwtService = jwtService;
+        this.revenueRepository = revenueRepository;
     }
 
   
@@ -66,7 +69,13 @@ public class RevenueController {
         @RequestParam("end") LocalDate end,
         @RequestParam("userId") Integer userId) {
             return revenueService.calculateTotalRevenue(start, end, userId);
-        }
+    }
+
+    @GetMapping("/total-by-department/{departmentId}")
+    public ResponseEntity<Double> getTotalRevenueByDepartment(@PathVariable Integer departmentId) {
+        Double total = revenueRepository.getTotalRevenueByDepartmentId(departmentId);
+        return ResponseEntity.ok(total);
+    }
     
 
 

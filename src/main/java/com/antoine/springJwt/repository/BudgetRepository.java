@@ -14,7 +14,13 @@ public interface BudgetRepository extends JpaRepository<Budget, Integer>{
 
     @Query(value = "SELECT SUM(max_amount) FROM budget", nativeQuery = true)
     Double getTotalBudgetAmount();
-    
+
+    long countByDepartmentId(Integer departmentId);
+
+    @Query("SELECT b.department.name, SUM(b.amount) " +
+           "FROM Budget b " +
+           "GROUP BY b.department.name")
+    List<Object[]> getTotalBudgetAmountGroupedByDepartment();
     
 }
 

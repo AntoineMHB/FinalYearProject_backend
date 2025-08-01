@@ -1,6 +1,8 @@
 package com.antoine.springJwt.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,26 @@ public class BudgetService {
     @Autowired
     private AuditLogService auditLogService;
 
+    public long getBudgetCountForDepartment(Integer departmentId) {
+       return budgetRepository.countByDepartmentId(departmentId);
+    }
+
+
     public BudgetService(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
+    }
+
+    public Map<String, Double> getTotalBudgetByDepartment() {
+        List<Object[]> results = budgetRepository.getTotalBudgetAmountGroupedByDepartment();
+        Map<String, Double> budgetMap = new HashMap<>();
+
+        for (Object[] row : results) {
+            String departmentName = (String) row[0];
+            Double totalAmount = (Double) row[1];
+            budgetMap.put(departmentName, totalAmount);
+        }
+
+        return budgetMap;
     }
 
     public List<Budget> getBudgetsByUser(Integer userId) {

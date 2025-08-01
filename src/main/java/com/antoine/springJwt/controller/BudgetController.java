@@ -2,6 +2,7 @@ package com.antoine.springJwt.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import com.antoine.springJwt.dto.BudgetDto;
 import com.antoine.springJwt.mapper.BudgetMapper;
 import com.antoine.springJwt.model.Budget;
 import com.antoine.springJwt.model.User;
+import com.antoine.springJwt.repository.BudgetRepository;
 import com.antoine.springJwt.service.BudgetService;
 import com.antoine.springJwt.service.JwtService;
 import com.antoine.springJwt.service.UserService;
@@ -28,11 +30,13 @@ public class BudgetController {
     private final BudgetService budgetService;
     private final UserService userService;
     private final JwtService jwtService;
+    private final BudgetRepository budgetRepository;
 
-    public BudgetController(BudgetService budgetService, UserService userService, JwtService jwtService) {
+    public BudgetController(BudgetService budgetService, UserService userService, JwtService jwtService, BudgetRepository budgetRepository) {
         this.budgetService = budgetService;
         this.userService = userService;
         this.jwtService = jwtService;
+        this.budgetRepository = budgetRepository;
     }
 
     // @GetMapping("/user/{userId}")
@@ -83,6 +87,18 @@ public ResponseEntity<List<BudgetDto>> getBudgets() {
        Double total = budgetService.getTotalBudgetAmount();
        return ResponseEntity.ok(total);
     }
+
+    @GetMapping("/departments/{id}/budgets/count")
+    public ResponseEntity<Long> countBudgetsByDepartment(@PathVariable("id") Integer departmentId) {
+       long count = budgetRepository.countByDepartmentId(departmentId);
+       return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/total-by-department")
+    public Map<String, Double> getTotalBudgetByDepartment() {
+        return budgetService.getTotalBudgetByDepartment();
+    }
+
 
     @DeleteMapping("/{budgetId}")
     public ResponseEntity<Void> deleteBudget(@PathVariable Integer budgetId) {

@@ -28,6 +28,12 @@ public class RevenueServiceImpl implements RevenueService {
         this.revenueRepository = revenueRepository;
     }
 
+    @Override
+    public Double getTotalRevenueByDepartment(Integer departmentId) {
+        Double total = revenueRepository.getTotalRevenueByDepartmentId(departmentId);
+        return total != null ? total : 0.0;
+    }
+
 
 
     @Override
