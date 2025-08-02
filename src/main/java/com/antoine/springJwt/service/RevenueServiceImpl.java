@@ -29,9 +29,9 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     @Override
-    public Double getTotalRevenueByDepartment(Integer departmentId) {
-        Double total = revenueRepository.getTotalRevenueByDepartmentId(departmentId);
-        return total != null ? total : 0.0;
+    public Double getTotalRevenueByDepartmentId(Integer departmentId) {
+        return revenueRepository.getTotalRevenueByDepartmentId(departmentId);
+
     }
 
 

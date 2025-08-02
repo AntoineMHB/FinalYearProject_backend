@@ -30,6 +30,9 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.PERSIST)
     private List<Budget> budgets = new ArrayList<>();
 
+    @OneToMany(mappedBy = "department", cascade = CascadeType.PERSIST)
+    private List<Revenue> revenues = new ArrayList<>();
+
 
     public Integer getId() {
         return id;
@@ -63,8 +66,11 @@ public class Department {
         this.budgets = budgets;
     }
 
+    public List<Revenue> getRevenues() {
+        return revenues;
+    }
 
-
-    
-
+    public void setRevenues(List<Revenue> revenues) {
+        this.revenues = revenues;
+    }    
 }

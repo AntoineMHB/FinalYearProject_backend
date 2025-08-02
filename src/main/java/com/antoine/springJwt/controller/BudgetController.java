@@ -22,6 +22,7 @@ import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.repository.BudgetRepository;
 import com.antoine.springJwt.service.BudgetService;
 import com.antoine.springJwt.service.JwtService;
+import com.antoine.springJwt.service.RevenueService;
 import com.antoine.springJwt.service.UserService;
 
 @RestController
@@ -32,17 +33,20 @@ public class BudgetController {
     private final JwtService jwtService;
     private final BudgetRepository budgetRepository;
 
+
     public BudgetController(BudgetService budgetService, UserService userService, JwtService jwtService, BudgetRepository budgetRepository) {
         this.budgetService = budgetService;
         this.userService = userService;
         this.jwtService = jwtService;
         this.budgetRepository = budgetRepository;
+
     }
 
     // @GetMapping("/user/{userId}")
     // public ResponseEntity<List<Budget>> getBudgetsByUser(@PathVariable Integer userId) {
     //     return ResponseEntity.ok(budgetService.getBudgetsByUser(userId));
     // }
+
 
     @PostMapping
     public ResponseEntity<Budget> createBudget(@RequestBody Budget budget, @RequestHeader("Authorization") String authHeader) {

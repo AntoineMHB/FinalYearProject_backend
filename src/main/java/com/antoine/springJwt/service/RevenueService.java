@@ -13,5 +13,5 @@ public interface RevenueService {
     Double getTotalRevenueAmount();
     void deleteRevenue(Integer revenueId);
     Double calculateTotalRevenue(LocalDate start, LocalDate end, Integer userId);
-    Double getTotalRevenueByDepartment(Integer departmentId);
+    Double getTotalRevenueByDepartmentId(Integer departmentId);
 }

@@ -8,7 +8,7 @@ public class RevenueDto {
     private Double amount;
     private String description;
     private Integer userId;
-    private Integer budgetId;
+    private Integer departmentId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -28,8 +28,8 @@ public class RevenueDto {
     public Integer getUserId() { return userId; }
     public void setUserId(Integer userId) { this.userId = userId; }
 
-    public Integer getBudgetId() { return budgetId; }
-    public void setBudgetId(Integer budgetId) { this.budgetId = budgetId; }
+    public Integer getDepartmentId() { return departmentId; }
+    public void setDepartmentId(Integer departmentId) { this.departmentId = departmentId; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

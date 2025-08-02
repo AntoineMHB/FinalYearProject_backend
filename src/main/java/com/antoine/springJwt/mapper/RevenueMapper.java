@@ -11,7 +11,7 @@ public class RevenueMapper {
         dto.setAmount(revenue.getAmount());
         dto.setDescription(revenue.getDescription());
         dto.setUserId(revenue.getUser().getId());
-        dto.setBudgetId(revenue.getBudget().getId());
+        dto.setDepartmentId(revenue.getDepartment().getId());
         dto.setCreatedAt(revenue.getCreatedAt());
         dto.setUpdatedAt(revenue.getUpdatedAt());
         return dto;

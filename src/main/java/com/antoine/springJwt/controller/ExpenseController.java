@@ -66,7 +66,14 @@ public class ExpenseController {
         @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
         @RequestParam("userId") Integer userId) {
             return expenseService.generateReport(start, end, userId);
-        }
+    }
+
+    @GetMapping("/total-expense-by-dpt/{departmentId}")
+    public ResponseEntity<Double> getTotalExpenseByDepartment(@PathVariable Integer departmentId) {
+        Double total = expenseService.getTotalExpenseByDepartment(departmentId);
+        return ResponseEntity.ok(total != null ? total : 0.0);
+    }
+
     
 
     @PostMapping

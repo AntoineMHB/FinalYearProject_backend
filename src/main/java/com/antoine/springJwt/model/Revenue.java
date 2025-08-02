@@ -33,9 +33,10 @@ public class Revenue {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+
     @ManyToOne
-    @JoinColumn(name = "budget_id", nullable = false)
-    private Budget budget;
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -80,16 +81,6 @@ public class Revenue {
         this.description = description;
     }
 
-
-
-    public Budget getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Budget budget) {
-        this.budget = budget;
-    }
-
     public String getRevenueName() {
         return revenueName;
     }
@@ -114,7 +105,11 @@ public class Revenue {
         this.updatedAt = updatedAt;
     }
 
-    
-    
-    
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }    
 }

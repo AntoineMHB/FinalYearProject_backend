@@ -28,7 +28,6 @@ import com.antoine.springJwt.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
-@CrossOrigin(origins = "http://localhost:5173/")
 @RestController
 @RequestMapping("/api/revenues")
 public class RevenueController {
@@ -36,6 +35,8 @@ public class RevenueController {
     private final UserService userService;
     private final JwtService jwtService;
     private final RevenueRepository revenueRepository;
+
+    
 
     public RevenueController(RevenueService revenueService, UserService userService, JwtService jwtService, RevenueRepository revenueRepository) {
         this.revenueService = revenueService;
@@ -71,9 +72,9 @@ public class RevenueController {
             return revenueService.calculateTotalRevenue(start, end, userId);
     }
 
-    @GetMapping("/total-by-department/{departmentId}")
+    @GetMapping("/total-revenue-by-dpt/{departmentId}")
     public ResponseEntity<Double> getTotalRevenueByDepartment(@PathVariable Integer departmentId) {
-        Double total = revenueRepository.getTotalRevenueByDepartmentId(departmentId);
+        Double total = revenueService.getTotalRevenueByDepartmentId(departmentId);
         return ResponseEntity.ok(total);
     }
     

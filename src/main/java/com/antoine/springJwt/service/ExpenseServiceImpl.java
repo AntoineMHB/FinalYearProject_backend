@@ -5,7 +5,9 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,11 @@ public class ExpenseServiceImpl implements ExpenseService {
     public ExpenseServiceImpl(ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
     }
+
+    public Double getTotalExpenseByDepartment(Integer departmentId) {
+       return expenseRepository.getTotalExpenseByDepartment(departmentId);
+    }
+
 
 @Override
 public ExpenseReportDto generateReport(LocalDate start, LocalDate end, Integer userId) {
