@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.antoine.springJwt.model.Budget;
+import com.antoine.springJwt.model.BudgetStatus;
 
 @Repository
 public interface BudgetRepository extends JpaRepository<Budget, Integer>{
@@ -25,6 +26,9 @@ public interface BudgetRepository extends JpaRepository<Budget, Integer>{
     boolean existsByBudgetNameAndUserId(String budgetName, Integer userId);
 
     List<Budget> findByDepartmentId(Integer departmentId);
+
+    List<Budget> findByStatus(BudgetStatus status);
+
     
 }
 

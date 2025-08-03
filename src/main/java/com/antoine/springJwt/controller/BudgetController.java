@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.antoine.springJwt.dto.BudgetDto;
 import com.antoine.springJwt.mapper.BudgetMapper;
 import com.antoine.springJwt.model.Budget;
+import com.antoine.springJwt.model.BudgetStatus;
 import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.repository.BudgetRepository;
 import com.antoine.springJwt.service.BudgetService;
@@ -74,6 +76,8 @@ public class BudgetController {
         }
 
         budget.setUser(user);
+        budget.setStatus(BudgetStatus.PENDING);
+
         return ResponseEntity.ok(budgetService.createBudget(budget, userId));
     }
 
@@ -92,6 +96,7 @@ public class BudgetController {
             dto.setDepartmentId(budget.getDepartment().getId()); // assuming Budget has getDepartment()
             dto.setCreatedAt(budget.getCreatedAt());
             dto.setUpdatedAt(budget.getUpdatedAt());
+            dto.setStatus(budget.getStatus());
             return dto;
         }).collect(Collectors.toList());
 
@@ -138,5 +143,34 @@ public ResponseEntity<List<BudgetDto>> getBudgets() {
         budgetService.deleteBudget(budgetId);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{budgetId}/approve")
+    public ResponseEntity<?> approveBudget(@PathVariable Integer budgetId) {
+    Budget budget = budgetService.getBudgetById(budgetId);
+    if (budget == null) {
+        return ResponseEntity.notFound().build();
+    }
+    budget.setStatus(BudgetStatus.APPROVED);
+    budgetService.save(budget);
+    return ResponseEntity.ok("Budget approved.");
+}
+
+    @PutMapping("/{budgetId}/reject")
+    public ResponseEntity<?> rejectBudget(@PathVariable Integer budgetId) {
+    Budget budget = budgetService.getBudgetById(budgetId);
+    if (budget == null) {
+        return ResponseEntity.notFound().build();
+    }
+    budget.setStatus(BudgetStatus.REJECTED);
+    budgetService.save(budget);
+    return ResponseEntity.ok("Budget rejected.");
+}
+   
+@GetMapping("/pending")
+public ResponseEntity<List<Budget>> getPendingBudgets() {
+    List<Budget> pendingBudgets = budgetService.getBudgetsByStatus(BudgetStatus.PENDING);
+    return ResponseEntity.ok(pendingBudgets);
+}
+
     
 }

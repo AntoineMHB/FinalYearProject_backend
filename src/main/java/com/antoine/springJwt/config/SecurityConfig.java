@@ -51,7 +51,8 @@ public class SecurityConfig {
                          "/api/payment/**", "/api/payment/generate-receipt/**", "/api/revenues/total-revenue-by-dpt/{departmentId}/**", 
                          "/api/expenses/total-expense-by-dpt/{departmentId}/**", "/api/expenses/by-department/{departmentId}/**",
                          "/api/budgets/by-department/{departmentId}","/api/revenues/by-department/{departmentId}/**",
-                         "/api/accounts/user/{userId}/**", "/api/expenses/user/{userId}/**", "/forgotPassword/**", "/reset-password/**").permitAll()
+                         "/api/accounts/user/{userId}/**", "/api/expenses/user/{userId}/**", "/forgotPassword/**", "/reset-password/**",
+                         "/api/budgets/{budgetId}/**", "/api/budgets/{budgetId}/approve", "/api/budgets/{budgetId}/reject", "/api/budgets/pending/**").permitAll()
                         .anyRequest().authenticated())
                 .userDetailsService(userDetailsServiceImp)
                 .sessionManagement(session -> session

@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,6 +35,10 @@ public class Budget {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private BudgetStatus status;  // NEW FIELD
+
 
     @ManyToOne
     @JsonIgnoreProperties("budgets")
@@ -128,6 +134,16 @@ public class Budget {
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
     }
+
+    public BudgetStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BudgetStatus status) {
+        this.status = status;
+    }
+
+
     
     
 }

@@ -2,6 +2,8 @@ package com.antoine.springJwt.dto;
 
 import java.time.LocalDateTime;
 
+import com.antoine.springJwt.model.BudgetStatus;
+
 public class BudgetDto {
     private Integer id;
     private String budgetName;
@@ -9,6 +11,7 @@ public class BudgetDto {
     private String description;
     private Integer userId;
     private Integer departmentId;
+    private BudgetStatus status;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -37,4 +40,14 @@ public class BudgetDto {
 
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
+    public BudgetStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BudgetStatus status) {
+        this.status = status;
+    }
+
+
 }
