@@ -50,7 +50,7 @@ public class SecurityConfig {
                          "/api/audit-logs/**", "/api/payment/initialize/**", "/api/payment/receipt/**",
                          "/api/payment/**", "/api/payment/generate-receipt/**", "/api/revenues/total-revenue-by-dpt/{departmentId}/**", 
                          "/api/expenses/total-expense-by-dpt/{departmentId}/**", "/api/expenses/by-department/{departmentId}/**",
-                         "/api/budgets/by-department/{departmentId}",
+                         "/api/budgets/by-department/{departmentId}","/api/revenues/by-department/{departmentId}/**",
                          "/api/accounts/user/{userId}/**", "/api/expenses/user/{userId}/**", "/forgotPassword/**", "/reset-password/**").permitAll()
                         .anyRequest().authenticated())
                 .userDetailsService(userDetailsServiceImp)

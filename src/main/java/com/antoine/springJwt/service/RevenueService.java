@@ -3,6 +3,7 @@ package com.antoine.springJwt.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.antoine.springJwt.dto.RevenueDto;
 import com.antoine.springJwt.model.Revenue;
 
 public interface RevenueService {
@@ -14,4 +15,5 @@ public interface RevenueService {
     void deleteRevenue(Integer revenueId);
     Double calculateTotalRevenue(LocalDate start, LocalDate end, Integer userId);
     Double getTotalRevenueByDepartmentId(Integer departmentId);
+    List<Revenue> getRevenuesByDepartment(Integer departmentId);
 }

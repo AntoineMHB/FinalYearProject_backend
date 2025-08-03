@@ -23,6 +23,7 @@ public interface RevenueRepository extends JpaRepository<Revenue, Integer>{
     @Query(value = "SELECT SUM(max_amount) FROM revenue r WHERE r.department_id = :departmentId", nativeQuery = true)
     Double getTotalRevenueByDepartmentId(@Param("departmentId")Integer departmentId);
 
+    List<Revenue> findByDepartmentId(Integer departmentId);
 
     
 }

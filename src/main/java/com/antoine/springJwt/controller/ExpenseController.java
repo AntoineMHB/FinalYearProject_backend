@@ -104,7 +104,7 @@ public ResponseEntity<List<ExpenseDto>> getExpensesByDepartment(@PathVariable In
     
 
     @PostMapping
-    public ResponseEntity<Expense> createRevenue(@RequestBody Expense expense, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<Expense> createExpense(@RequestBody Expense expense, @RequestHeader("Authorization") String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

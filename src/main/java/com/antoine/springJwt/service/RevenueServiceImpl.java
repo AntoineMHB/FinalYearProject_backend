@@ -3,10 +3,12 @@ package com.antoine.springJwt.service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.antoine.springJwt.dto.RevenueDto;
 import com.antoine.springJwt.model.Revenue;
 import com.antoine.springJwt.model.User;
 import com.antoine.springJwt.repository.RevenueRepository;
@@ -72,6 +74,13 @@ public class RevenueServiceImpl implements RevenueService {
         Double total = revenueRepository.getTotalRevenueAmount();
         return total != null ? total : 0.0;
     }
+
+    @Override
+    public List<Revenue> getRevenuesByDepartment(Integer departmentId) {
+        return revenueRepository.findByDepartmentId(departmentId);
+    }
+
+  
 
     @Override
     public void deleteRevenue(Integer revenueId) {

@@ -3,6 +3,7 @@ package com.antoine.springJwt.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +77,25 @@ public class RevenueController {
     public ResponseEntity<Double> getTotalRevenueByDepartment(@PathVariable Integer departmentId) {
         Double total = revenueService.getTotalRevenueByDepartmentId(departmentId);
         return ResponseEntity.ok(total);
+    }
+
+    @GetMapping("/by-department/{departmentId}")
+    public List<RevenueDto> getRevenuesByDepartment(@PathVariable Integer departmentId) {
+        List<Revenue> revenues = revenueService.getRevenuesByDepartment(departmentId);
+        return revenues.stream().map(revenue -> mapToDto(revenue)).collect(Collectors.toList());
+    }
+
+    private RevenueDto mapToDto(Revenue revenue) {
+        RevenueDto dto = new RevenueDto();
+        dto.setId(revenue.getId());
+        dto.setRevenueName(revenue.getRevenueName());
+        dto.setAmount(revenue.getAmount());
+        dto.setDescription(revenue.getDescription());
+        dto.setUserId(revenue.getUser() != null ? revenue.getUser().getUser_id() : null);
+        dto.setDepartmentId(revenue.getDepartment() != null ? revenue.getDepartment().getId() : null);
+        dto.setCreatedAt(revenue.getCreatedAt());
+        dto.setUpdatedAt(revenue.getUpdatedAt());
+        return dto;
     }
     
 
