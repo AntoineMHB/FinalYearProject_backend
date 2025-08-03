@@ -74,6 +74,33 @@ public class ExpenseController {
         return ResponseEntity.ok(total != null ? total : 0.0);
     }
 
+    // @GetMapping("/by-department/{departmentId}")
+    // public List<Expense> getExpensesByDepartment(@PathVariable Integer departmentId) {
+    //     return expenseService.getExpensesByDepartmentId(departmentId);
+    // }
+
+    @GetMapping("/by-department/{departmentId}")
+public ResponseEntity<List<ExpenseDto>> getExpensesByDepartment(@PathVariable Integer departmentId) {
+    List<Expense> expenses = expenseService.getExpensesByDepartmentId(departmentId);
+    
+    // Convert each Expense to ExpenseDto
+    List<ExpenseDto> expenseDtos = expenses.stream().map(expense -> {
+        ExpenseDto dto = new ExpenseDto();
+        dto.setId(expense.getId());
+        dto.setExpenseName(expense.getExpenseName());
+        dto.setAmount(expense.getAmount());
+        dto.setDescription(expense.getDescription());
+        dto.setUserId(expense.getUser().getId());
+        dto.setBudgetId(expense.getBudget().getId());
+        dto.setCreatedAt(expense.getCreatedAt());
+        dto.setUpdatedAt(expense.getUpdatedAt());
+        return dto;
+    }).toList();
+
+    return ResponseEntity.ok(expenseDtos);
+}
+
+
     
 
     @PostMapping

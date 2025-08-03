@@ -34,7 +34,7 @@ public class AuditLogController {
            ))
            .collect(Collectors.toList());
 
-        //    auditLogService.log("Created", "Revenue", "Revenue for July 2025", loggedInUser);
+        // auditLogService.log("Created", "Revenue", "Revenue for July 2025", user);
 
     }
     

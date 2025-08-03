@@ -21,6 +21,10 @@ public interface BudgetRepository extends JpaRepository<Budget, Integer>{
            "FROM Budget b " +
            "GROUP BY b.department.name")
     List<Object[]> getTotalBudgetAmountGroupedByDepartment();
+
+    boolean existsByBudgetNameAndUserId(String budgetName, Integer userId);
+
+    List<Budget> findByDepartmentId(Integer departmentId);
     
 }
 

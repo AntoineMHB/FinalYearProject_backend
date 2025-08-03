@@ -14,5 +14,6 @@ public interface ExpenseService {
     List<Expense> getAllExpenses();
     public Double calculateTotalExpense(LocalDate start, LocalDate end, Integer userId);
     Double getTotalExpenseByDepartment(Integer departmentId);
+    List<Expense> getExpensesByDepartmentId(Integer departmentId);
 
 }

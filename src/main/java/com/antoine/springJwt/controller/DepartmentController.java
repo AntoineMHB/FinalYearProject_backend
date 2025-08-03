@@ -28,6 +28,7 @@ public class DepartmentController {
     private final DepartmentService departmentService;
     private final UserService userService;
 
+
     public DepartmentController(DepartmentService departmentService, UserService userService) {
         this.departmentService = departmentService;
         this.userService = userService;

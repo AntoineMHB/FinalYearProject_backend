@@ -27,6 +27,9 @@ public interface ExpenseRepository extends JpaRepository<Expense, Integer>{
        """, nativeQuery = true)
     Double getTotalExpenseByDepartment(@Param("departmentId") Integer departmentId);
 
+    @Query("SELECT e FROM Expense e WHERE e.budget.department.id = :departmentId")
+    List<Expense> findByDepartmentId(Integer departmentId);
+
 
 
     

@@ -3,6 +3,7 @@ package com.antoine.springJwt.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class BudgetController {
 
 
     @PostMapping
-    public ResponseEntity<Budget> createBudget(@RequestBody Budget budget, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> createBudget(@RequestBody Budget budget, @RequestHeader("Authorization") String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -66,9 +67,37 @@ public class BudgetController {
         if (user == null) {
             return ResponseEntity.badRequest().body(null); // Invalid user
         }
+
+        boolean exists = budgetService.existsByBudgetNameAndUserId(budget.getBudgetName(), user.getId());
+        if (exists) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("A budget with the same name already exists.");
+        }
+
         budget.setUser(user);
         return ResponseEntity.ok(budgetService.createBudget(budget, userId));
     }
+
+    @GetMapping("/by-department/{departmentId}")
+    public ResponseEntity<List<BudgetDto>> getBudgetsByDepartment(@PathVariable Integer departmentId) {
+        List<Budget> budgets = budgetService.getBudgetsByDepartmentId(departmentId);
+
+        // Convert List<Budget> to List<BudgetDto>
+        List<BudgetDto> budgetDtos = budgets.stream().map(budget -> {
+            BudgetDto dto = new BudgetDto();
+            dto.setId(budget.getId());
+            dto.setBudgetName(budget.getBudgetName());
+            dto.setAmount(budget.getAmount());
+            dto.setDescription(budget.getDescription());
+            dto.setUserId(budget.getUser().getId()); // assuming Budget has getUser()
+            dto.setDepartmentId(budget.getDepartment().getId()); // assuming Budget has getDepartment()
+            dto.setCreatedAt(budget.getCreatedAt());
+            dto.setUpdatedAt(budget.getUpdatedAt());
+            return dto;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(budgetDtos);
+    }
+
 
 @GetMapping
 public ResponseEntity<List<BudgetDto>> getBudgets() {

@@ -83,6 +83,13 @@ public ExpenseReportDto generateReport(LocalDate start, LocalDate end, Integer u
 
     }
 
+    @Override
+    public List<Expense> getExpensesByDepartmentId(Integer departmentId) {
+        return expenseRepository.findByDepartmentId(departmentId);
+    }
+
+
+    @Override
     public List<Expense> getAllExpenses () {
         return expenseRepository.findAll();
 

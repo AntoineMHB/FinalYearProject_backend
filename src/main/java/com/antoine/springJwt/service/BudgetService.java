@@ -72,6 +72,15 @@ public class BudgetService {
         return budgetRepository.save(budget);
     }
 
+    public boolean existsByBudgetNameAndUserId(String budgetName, Integer userId) {
+       return budgetRepository.existsByBudgetNameAndUserId(budgetName, userId);
+    }
+
+    public List<Budget> getBudgetsByDepartmentId(Integer departmentId) {
+        return budgetRepository.findByDepartmentId(departmentId);
+    }
+
+
     public void deleteBudget(Integer budgetId) {
         budgetRepository.deleteById(budgetId);
     }

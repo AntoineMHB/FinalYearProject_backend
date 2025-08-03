@@ -31,7 +31,6 @@ public class RevenueServiceImpl implements RevenueService {
     @Override
     public Double getTotalRevenueByDepartmentId(Integer departmentId) {
         return revenueRepository.getTotalRevenueByDepartmentId(departmentId);
-
     }
 
 
